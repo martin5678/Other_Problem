@@ -1,0 +1,7 @@
+version 1 with parent node
+
+
+
+version 2 without parent node
+
+http://www.geeksforgeeks.org/lowest-common-ancestor-binary-tree-set-1/

@@ -1,0 +1,103 @@
+Print all edge nodes of a complete binary tree anti-clockwise.
+That is all the left most nodes starting at root, then the leaves left to right and finally all the rightmost nodes.
+In other words, print the boundary of the tree.
+
+---------------------------------
+
+
+   _______________28_______________
+  /                                \
+  4____                        ____69
+       \                      /
+      __8__                __56__
+     /     \              /      \
+   __7     12__        __34    __27__
+  /            \      /       /      \
+  5_          _13    _2      _3      39
+    \        /      /       /
+     6      11     10       9
+
+
+
+
+用BFS最好，上届就是根节点， 左边界就是每层的最左边节点， 右边界就是每层的最右边节点（注意考虑每层只有一个的情况这样只能打一次） 下届就是所有叶子节点可能存在于每一层(当然最左边或者最右边不要打) 打印叶子节点似乎用DFS更好。
+
+public List<Integer> print(TreeNode root) {
+    List<Integer> rs = new ArrayList<Integer>();
+    if (root == null) {
+	return rs;
+    }
+    // print top
+    rs.add(root.val);
+    // print left
+    printLeft(root, rs);
+    // print bottom
+    int size = rs.size();
+    printBottom(root, rs);
+    rs.remove(size);
+    if (rs.size() != size) {
+        rs.remove(rs.size() - 1);
+    }
+    // print right
+    index = rs.size();
+    printRight(root, rs, index);
+    return rs;
+}
+
+private void printLeft(TreeNode root, List<Integer> rs) {
+    Queue<TreeNode> q = new LinkedList<TreeNode>();
+    q.offer(root);
+    while (q.size() > 0) {
+        int size = q.size();
+        for (int i = 0; i < size; i++) {
+            TreeNode temp = q.poll();
+            if (i == 0 && temp != root) {
+                rs.add(temp.val);
+            }
+            if (temp.left != null) {
+                q.offer(temp.left);
+            }
+            if (temp.right != null) {
+                q.offer(temp.right);
+            }
+        }
+    }
+}
+
+private void printRight(TreeNode root, List<Integer> rs, int index) {
+    Queue<TreeNode> q = new LinkedList<TreeNode>();
+    q.offer(root);
+    boolean added = false
+    while (q.size() > 0) {
+        int size = q.size();
+        for (int i = 0; i < size; i++) {
+            TreeNode temp = q.poll();
+            if (i == size - 1 && i != 0 && temp != root) {
+                if (added == false) {
+                    rs.add(temp.val);
+                    added == true;
+                } else {
+                    rs.add(index, temp.val);
+                }
+            }
+            if (temp.left != null) {
+                q.offer(temp.left);
+            }
+            if (temp.right != null) {
+                q.offer(temp.right);
+            }
+        }
+    }
+}
+
+private void printBottom(TreeNode root, List<Integer> rs) {
+    if (root == null) {
+        return;
+    }
+    if (root.left == null && root. right == null) {
+        rs.add(root.val);
+        return;
+    }
+    printBottom(root.left);
+    printBottom(root.right);
+}

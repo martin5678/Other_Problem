@@ -1,0 +1,42 @@
+Given a string which contains only letters. Sort it by lower case first and upper case second.
+
+Note
+It's not necessary to keep the original order of lower-case letters and upper case letters.
+
+Example
+For "abAcD", a reasonable answer is "acbAD"
+
+Challenge Expand 
+Do it in one-pass and in-place.
+
+
+---------------------------------------------------
+
+
+快速排序的一步。
+
+
+public class Solution {
+    public void sortLetters(char[] chars) {
+        if (chars.length == 0 || chars == null) {
+            return;
+        }
+        int first = 0;
+        int last = chars.length - 1;
+        while (first < last) {
+            while (first < chars.length && chars[first] >= 'a') {
+                first++;
+            }
+            while (last > 0 && chars[last] <= 'Z') {
+                last--;
+            }
+            if (first < last) {
+                char temp = chars[last];
+                chars[last] = chars[first];
+                chars[first] = temp;
+                last--;
+                first++;
+            }
+        }
+    }
+}

@@ -1,0 +1,75 @@
+Find all the prime numbers form 1 to n.
+
+------------------------------
+Note: 去除法。先把2加进来，之后的数字只要是结果集合里面某个质数的倍数就不是质数。 对于x 只需要检查 2 - 根号x之间的数就可
+
+
+
+public ArrayList<Integer> findPrime(int n) {
+    	ArrayList<Integer> rs = new ArrayList<Integer>();
+    	rs.add(2);
+    	for (int i = 3; i <= n; i++) {
+    		for (int j = 0; j < rs.size(); j++) {
+    			if (i % rs.get(j) == 0) {
+    				break;
+    			}
+    			if (j == rs.size() - 1) {
+    				rs.add(i);
+    			}
+    		}
+    	}
+    	return rs;
+    }
+
+
+优化后：
+
+public ArrayList<Integer> findPrime(int n) {
+    	ArrayList<Integer> rs = new ArrayList<Integer>();
+    	rs.add(2);
+    	rs.add(3);
+    	for (int i = 4; i <= n; i++) {
+    		int size = rs.size();
+    		for (int j = 0; j < size; j++) {
+    			if (i % rs.get(j) == 0) {
+    				break;
+    			}
+    			if (rs.get(j) > Math.sqrt(i)) {
+    				rs.add(i);
+    				break;
+    			}
+    		}
+    	}
+    	return rs;
+    }
+
+
+
+筛选法 ： 从2开始， 之后的数是当前数倍数的被筛选掉。
+
+
+public ArrayList<Integer> findPrime(int n) {
+    	ArrayList<Integer> rs = new ArrayList<Integer>();
+    	int[] array = new int[n + 1];
+    	for (int i = 0; i < n + 1; i++) {
+    		array[i] = i;
+    	}
+    	for (int j = 1; j < n + 1; j++) {
+    		if (array[j] != 1) {
+    			for (int k = j + 1; k < n + 1; k++) {
+    				if (array[k] % array[j] == 0) {
+    					array[k] = 1;
+    				}
+    			}
+    		}
+    	}
+    	for (int i = 1; i < n + 1; i++) {
+    		if (array[i] != 1) {
+    			rs.add(array[i]);
+    		}
+    	}
+    	return rs;
+    }
+
+
+

@@ -1,0 +1,26 @@
+Write an algorithm which computes the number of trailing zeros in n factorial.
+
+Example
+11! = 39916800, so the out should be 2
+
+Challenge Expand 
+O(log N) time
+
+-----------------------------
+
+唯一能构成0 的就是5的倍数， 如果5的倍数里面好好几个5就要数多次，比如25 = 5 *5  125 = 5 * 5 * 5.。。
+程序里面第一个循环数5的倍数有几个，第二个循环数25的倍数，第三个125的倍数。。。。。
+
+public long trailingZeros(long n) {
+        
+    long count = 0;
+        
+    for (long i = 5; n / i > 0; i *= 5) {
+            
+        count += n / i;
+        
+    }
+        
+    return count;
+    
+}

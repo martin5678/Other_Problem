@@ -1,0 +1,23 @@
+You can buy as many as you want and sell it at any time. which means mutiple transaction is allowed
+
+
+----------------------------------
+
+其实核心想法跟版本一基本一样，就是每一步都累加一起就好了
+
+public int maxProfit(int[] prices) {
+        int len = prices.length;
+        if (len == 0) {
+            return 0;
+        }
+        int maxprofit = 0;
+        int maxvalue = prices[len - 1];
+        for (int i = len - 2; i >= 0; i--) {
+            if (prices[i] >= maxvalue) {
+                maxvalue = prices[i];
+                continue;
+            }
+            maxprofit += maxvalue - prices[i];
+        }
+        return maxprofit;
+    }

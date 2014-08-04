@@ -1,0 +1,21 @@
+第一步需要计算根节点到叶子节点的最大距离
+
+
+public int getHeight(TreeNode root) {
+    if (root == null) {
+	return 0;
+    }
+    return Math.max(getHeight(root.left), getHeight(root.right)) + 1;			
+}
+
+
+public void level (TreeNode root, int depth, List<Integer> rs) {
+    if (root = null || level < 0) {
+        return;
+    }
+    if (level == 0) {
+	rs.add(root.val);
+    }	
+    level(root.left, depth - 1, rs);
+    level(root.right, depth - 1, rs);	 
+}

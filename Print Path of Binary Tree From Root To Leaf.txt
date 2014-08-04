@@ -1,0 +1,107 @@
+
+递归比较好写，枚举所有可能DFS就好。
+
+非递归需要用BFS来写。
+
+
+
+
+
+
+
+public class test {
+	private TreeNode root;
+	class TreeNode {
+		TreeNode left;
+		TreeNode right;
+		int value;
+		public TreeNode(int n) {
+			this.value = n;
+		}
+	}
+	
+	public void put(int val) {
+		root=recursivePut(root, val);
+	}
+	
+	private TreeNode recursivePut(TreeNode root, int val) {
+		if (root == null) 
+			root=new TreeNode(val);
+		if (val > root.value) 
+			root.right = recursivePut(root.right,val);
+		else if (val < root.value)
+			root.left = recursivePut(root.left,val);	
+		else 
+			root.value = val;
+		
+		return root;				
+	}
+	
+	public List<List<Integer>> nonrecPath(TreeNode root) {
+		List<List<Integer>> rs = new ArrayList<List<Integer>>();
+		Queue<TreeNode> q = new LinkedList<TreeNode>();
+		Queue<ArrayList<Integer>> r = new LinkedList<ArrayList<Integer>>();
+		q.offer(root);
+		ArrayList<Integer> st = new ArrayList<Integer>();
+		st.add(root.value);
+		r.offer(st);
+		while (q.size() > 0) {
+			TreeNode n = q.poll();
+			ArrayList<Integer> temp = r.poll();
+			if (n.left == null && n.right == null) {
+				rs.add(temp);
+				continue;
+			}
+			if (n.left != null) {
+				ArrayList<Integer> t = new ArrayList<Integer>(temp);
+				t.add(n.left.value);
+				r.offer(t);
+				q.offer(n.left);
+			}
+			if (n.right != null) {
+				ArrayList<Integer> k = new ArrayList<Integer>(temp);
+				k.add(n.right.value);
+				r.offer(k);
+				q.offer(n.right);
+			}
+		}
+		return rs;
+	}
+	
+	public List<List<Integer>> recPath(TreeNode root) {
+		List<List<Integer>> rs = new ArrayList<List<Integer>>();
+		ArrayList<Integer> temp = new ArrayList<Integer>();
+		helper(rs, temp, root);
+		return rs;
+	}
+	
+	private void helper(List<List<Integer>> rs, ArrayList<Integer> temp, TreeNode root) {
+		if (root == null) {
+			return;
+		}
+		if (root.left == null && root.right == null) {
+			temp.add(root.value);
+			rs.add(new ArrayList<Integer>(temp));
+			temp.remove(temp.size() - 1);
+			return;
+		}
+		temp.add(root.value);
+		helper(rs, temp, root.left);
+		helper(rs, temp, root.right);
+		temp.remove(temp.size() - 1);
+	}
+	public static void main(String[] args){
+		test t = new test();
+		t.put(7);
+		t.put(9);
+		t.put(3);
+		t.put(6);
+		t.put(1);
+		t.put(12);
+		for (List<Integer> a : t.recPath(t.root)) {
+			System.out.println(a);
+		}
+
+		
+}
+}

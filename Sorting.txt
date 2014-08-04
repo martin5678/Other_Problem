@@ -1,0 +1,79 @@
+Quick sort
+
+public class QuickSort {
+	public void quickSort(int a[]) {
+	    helper(a, 0, a.length - 1);    
+	}
+
+	private void helper(int a[], int head, int tail) {
+	    if (head >= tail) {
+	        return;
+	    }
+	    int key = a[tail];
+	    int first = head;
+	    int last = tail - 1;
+	    while (first <= last) {
+	        while (first <= last &&a[first] <= key) {
+	        	first++;
+	        }
+	        while (first <= last && a[last] > key) {
+	            last--;
+	        }
+	        // swap
+	        if (first <= last) {
+	            int temp = a[first]; 
+	            a[first] = a[last];
+	            a[last] = temp;
+	        }
+	    }
+	    // first point to the first element of the bigger partition
+	    a[tail] = a[first];
+	    a[first] = key;
+	    helper(a, head, first - 1);
+	    helper(a, first + 1, tail);
+	}
+}
+
+
+Merge sort
+
+
+
+public class MergeSort{
+	public void mergeSort(int a[]) {
+		int[] copy = new int[a.length];
+		helper(a, copy, 0, a.length - 1);
+	}
+	
+	private void helper(int[] original, int[] copy, int start, int end) {
+		if (start >= end) {
+			return;
+		}
+		int mid = start + (end - start) / 2;
+		helper(original, copy, start, mid);
+		helper(original, copy, mid + 1, end);
+		merge(original, copy, start, mid, end);
+	}
+	
+	private void merge(int[] original, int[] copy, int start, int mid, int end) {
+		int left1 = start, right1 = mid;
+		int left2 = mid + 1, right2 = end;
+		int index = start;
+		while (left1 <= right1 && left2 <= right2) {
+			if (original[left1] < original[left2]) {
+				copy[index++] = original[left1++];
+			} else {
+				copy[index++] = original[left2++];
+			}
+		}
+		while (left1 <= right1) {
+			copy[index++] = original[left1++];
+		}
+		while (left2 <= right2) {
+			copy[index++] = original[left2++];
+		}
+		// copy the data to the original array
+		for (int i = start; i <= end; i++) {
+			original[i] = copy[i];
+		}
+	}
