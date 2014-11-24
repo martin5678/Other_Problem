@@ -1,0 +1,87 @@
+Linkedin 
+
+1, Design
+
+a restful server with 4GB,  
+given a request such as: http://seq=4?len=60?xxxxdata
+the system will store the binary data with that sequence number.
+given a request: http://startseq=3?maxLen=100, the system returns all data objects 
+with sequence >= 3 with total data length less equal than 100.
+multiple clients calling simutaneous
+what data structure, concurrency, locking, etc..
+
+就是把url缩短的应用，应用简单，但是问题好多好细，估计这轮悲剧了
+。那个人就说，现在让你来做一个这样的系统，你怎么做，尽量多细节，选什么server
+，tomcat or jboss or whatever，页面用什么实现(JSP?)，怎么实现forward(比如
+servlet forward?(我只知道这个). 这个过程里面，session里的数据怎么处理)，
+cache怎么做，cache分布式还是怎么，server和cache交互，用什么方式request(
+protocal...)？cache在multi-threading情况下有哪些问题，举例子说明这些问题，然
+后怎么实现LRU，cache用什么server(一定要说一个具体的，多大内存。。。)，数据库
+用啥（oracle or mysql）？大概这些类似的问题。就是要很细，感觉他需要的答案是
+一个别人马上能拿去实现的(不一定是最好的，但是要详细)，用什么server，tech 
+stack是什么，用什么protocal都得说清楚。这一轮最悲剧。我面试的时候他在做笔记
+，比如我说tomcat，jsp，http，servlet，他都记下了
+
+
+
+
+
+2, Algorithm
+
+Valid number
+
+Reverse polish
+
+Implement blocking queue
+
+Binary tree level order print, append '\n' after each level
+
+Two ordered array, get intersection and union.
+
+Word ladder
+
+一个嵌套Map， 就是一个HashMap, 它的value可以是一个element也可以是另外一个
+嵌套map或是空的map. 实现一个iterator来遍历这个map里面的所有element。 就是类
+似树遍历一样的方法
+
+memcpy:  源区域和目标区域可能有重叠
+
+BST 插入和删除操作实现
+
+BST iterator 实现
+
+实现两个函数: H() and O(), 这两个函数会被多线程调用。当一个线程调用H或O时
+，如果当前已经有至少两个线程call H和一个线程call O。那么让两个call H和一个
+call O的线程返回（产生一个水分子），其他的都block。
+
+Given a social graph, find if there is a path between two persons with at
+most 2 steps (3rd level connection), how to handle it in distributed way (
+large graph stored at a large number of nodes, minimize cross-communication)
+
+实现pow
+
+binary tree，实现三个函数，1.把树写到文件，2.再读回来，3.再比
+较前后两棵树是不是一样。
+
+三个问题，第一个是找一个integer array里面的sum最大的连续子序列
+；第二个问题，3 sum的变形，给一个integer set，给一个sum，找出set里面和等于
+sum的所有subset(不能生成所有subset再比较，我的做法就是加一些trim的条件)；第
+三题，老题，给一个string，在给一个char的set，找出string里面的一个最短
+substring，包括char set里面所有的char
+
+最大连续子序列和
+
+1. 二位矩阵，行列都sorted，每行的第一个数小于前一行的最后一个数，给一个
+target，判断其在不在矩阵内
+2. 如果没有第二个条件，如何搜索
+3. 如何使算法是log(m) + log(n)，log的底数是多少
+
+
+
+
+
+3, CS fundamental
+
+Java based questions like abstract class vs interface etc..
+mutex vs semaphore and how to implement them.
+
